@@ -1,0 +1,380 @@
+{
+  "admin": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": true,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "weixin": {
+      "appid": "",
+      "secret": "",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "chat_system",
+        "prefix": "",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "root",
+        "password": "",
+        "dateStrings": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      }
+    },
+    "websocket": {
+      "type": "socketio",
+      "socketio": {
+        "allowHeaters": [
+          "content-type"
+        ],
+        "allowCredentials": true,
+        "allowMethods": [
+          "GET",
+          "HEAD",
+          "PUT",
+          "POST",
+          "DELETE",
+          "PATCH",
+          "OPTIONS"
+        ],
+        "allowOrigin": "localhost:9080",
+        "path": "/socket.io",
+        "adapter": null,
+        "messages": [
+          {
+            "open": "/api/websocket/open",
+            "close": "/api/websocket/close",
+            "addVerify": "/api/websocket/addVerify",
+            "addFriend": "/api/websocket/addFriend",
+            "addGroup": "/api/websocket/addGroup",
+            "inviteToGroup": "/api/websocket/inviteToGroup",
+            "acceptInviteAddToGroupLeader": "/api/websocket/acceptInviteAddToGroupLeader",
+            "acceptInviteAddToGroup": "/api/websocket/acceptInviteAddToGroup",
+            "createGroupJoin": "/api/websocket/createGroupJoin",
+            "removeGroup": "/api/websocket/removeGroup",
+            "leaveGroup": "/api/websocket/leaveGroup",
+            "chat": "/api/websocket/chat"
+          }
+        ]
+      }
+    },
+    "session": {
+      "type": "file",
+      "file": {
+        "cookie": {
+          "name": "thinkjs",
+          "keys": [
+            "signature key"
+          ],
+          "signed": true
+        },
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+      }
+    }
+  },
+  "api": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": true,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "weixin": {
+      "appid": "",
+      "secret": "",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "publicController": [
+      "index",
+      "catalog",
+      "topic",
+      "auth",
+      "goods",
+      "brand",
+      "search",
+      "region"
+    ],
+    "publicAction": [
+      "comment/list",
+      "comment/count",
+      "cart/index",
+      "cart/add",
+      "cart/checked",
+      "cart/update",
+      "cart/delete",
+      "cart/goodscount",
+      "pay/notify"
+    ],
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "chat_system",
+        "prefix": "",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "root",
+        "password": "",
+        "dateStrings": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      }
+    },
+    "websocket": {
+      "type": "socketio",
+      "socketio": {
+        "allowHeaters": [
+          "content-type"
+        ],
+        "allowCredentials": true,
+        "allowMethods": [
+          "GET",
+          "HEAD",
+          "PUT",
+          "POST",
+          "DELETE",
+          "PATCH",
+          "OPTIONS"
+        ],
+        "allowOrigin": "localhost:9080",
+        "path": "/socket.io",
+        "adapter": null,
+        "messages": [
+          {
+            "open": "/api/websocket/open",
+            "close": "/api/websocket/close",
+            "addVerify": "/api/websocket/addVerify",
+            "addFriend": "/api/websocket/addFriend",
+            "addGroup": "/api/websocket/addGroup",
+            "inviteToGroup": "/api/websocket/inviteToGroup",
+            "acceptInviteAddToGroupLeader": "/api/websocket/acceptInviteAddToGroupLeader",
+            "acceptInviteAddToGroup": "/api/websocket/acceptInviteAddToGroup",
+            "createGroupJoin": "/api/websocket/createGroupJoin",
+            "removeGroup": "/api/websocket/removeGroup",
+            "leaveGroup": "/api/websocket/leaveGroup",
+            "chat": "/api/websocket/chat"
+          }
+        ]
+      }
+    },
+    "session": {
+      "type": "file",
+      "file": {
+        "cookie": {
+          "name": "thinkjs",
+          "keys": [
+            "signature key"
+          ],
+          "signed": true
+        },
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+      }
+    }
+  },
+  "common": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": true,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "weixin": {
+      "appid": "",
+      "secret": "",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "chat_system",
+        "prefix": "",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "root",
+        "password": "",
+        "dateStrings": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+      }
+    },
+    "websocket": {
+      "type": "socketio",
+      "socketio": {
+        "allowHeaters": [
+          "content-type"
+        ],
+        "allowCredentials": true,
+        "allowMethods": [
+          "GET",
+          "HEAD",
+          "PUT",
+          "POST",
+          "DELETE",
+          "PATCH",
+          "OPTIONS"
+        ],
+        "allowOrigin": "localhost:9080",
+        "path": "/socket.io",
+        "adapter": null,
+        "messages": [
+          {
+            "open": "/api/websocket/open",
+            "close": "/api/websocket/close",
+            "addVerify": "/api/websocket/addVerify",
+            "addFriend": "/api/websocket/addFriend",
+            "addGroup": "/api/websocket/addGroup",
+            "inviteToGroup": "/api/websocket/inviteToGroup",
+            "acceptInviteAddToGroupLeader": "/api/websocket/acceptInviteAddToGroupLeader",
+            "acceptInviteAddToGroup": "/api/websocket/acceptInviteAddToGroup",
+            "createGroupJoin": "/api/websocket/createGroupJoin",
+            "removeGroup": "/api/websocket/removeGroup",
+            "leaveGroup": "/api/websocket/leaveGroup",
+            "chat": "/api/websocket/chat"
+          }
+        ]
+      }
+    },
+    "session": {
+      "type": "file",
+      "file": {
+        "cookie": {
+          "name": "thinkjs",
+          "keys": [
+            "signature key"
+          ],
+          "signed": true
+        },
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+      }
+    }
+  }
+}

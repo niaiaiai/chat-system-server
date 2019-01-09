@@ -1,0 +1,51 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\user.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "fs",
+        "_",
+        "module",
+        "exports",
+        "infoAction",
+        "userInfo",
+        "model",
+        "where",
+        "id",
+        "getLoginUserId",
+        "find",
+        "password",
+        "json",
+        "avatarAction",
+        "avatarBase64",
+        "post",
+        "think",
+        "isEmpty",
+        "fail",
+        "replace",
+        "user_email",
+        "that",
+        "dataBuffer",
+        "Buffer",
+        "filename",
+        "writeFileSync",
+        "ROOT_PATH",
+        "update",
+        "avatar",
+        "uuid",
+        "success",
+        "name",
+        "fileUrl",
+        "user_nameAction",
+        "isPost",
+        "user_name"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACA,MAAMC,KAAKD,QAAQ,IAAR,CAAX;AACA,MAAME,IAAIF,QAAQ,QAAR,CAAV;;AAEAG,OAAOC,OAAP,GAAiB,cAAcL,IAAd,CAAmB;AAC5BM,YAAN,GAAmB;AAAA;;AAAA;AACjB,YAAMC,WAAW,MAAM,MAAKC,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,IAAI,MAAKC,cAAL,EAAL,EAAzB,EAAsDC,IAAtD,EAAvB;AACA,aAAOL,SAASM,QAAhB;AACA,aAAO,MAAKC,IAAL,CAAUP,QAAV,CAAP;AAHiB;AAIlB;;AAED;;;;AAIMQ,cAAN,GAAqB;AAAA;;AAAA;AACnB,UAAIC,eAAe,OAAKC,IAAL,CAAU,QAAV,CAAnB;AACA,UAAIC,MAAMC,OAAN,CAAcH,YAAd,CAAJ,EAAiC;AAC/B,eAAO,OAAKI,IAAL,CAAU,QAAV,CAAP;AACD;AACDJ,qBAAeA,aAAaK,OAAb,CAAqB,0BAArB,EAAiD,EAAjD,CAAf;AACA,YAAMC,aAAa,OAAKL,IAAL,CAAU,YAAV,CAAnB;AACA,YAAMM,aAAN;;AAEA,YAAMC,aAAa,IAAIC,MAAJ,CAAWT,YAAX,EAAyB,QAAzB,CAAnB;AACA,YAAMU,WAAW,oBAAkBJ,UAAlB,GAA6B,MAA9C;AACApB,SAAGyB,aAAH,CAAiBT,MAAMU,SAAN,GAAkB,MAAlB,GAAyBF,QAA1C,EAAoDF,UAApD;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA,YAAM,OAAKhB,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACa,YAAYA,UAAb,EAAzB,EAAmDO,MAAnD,CAA0D,EAACC,QAAO,+BAA+BJ,QAA/B,GAAyC,GAAzC,GAA6CR,MAAMa,IAAN,CAAW,EAAX,CAArD,EAA1D,CAAN;;AAEA,aAAOR,KAAKS,OAAL,CAAa;AAClBC,cAAMP,QADY;AAElBQ,iBAAS,+BAA+BR,QAA/B,GAAwC,GAAxC,GAA4CR,MAAMa,IAAN,CAAW,EAAX;AAFnC,OAAb,CAAP;AArBmB;AAyBpB;;AAEKI,iBAAN,GAAwB;AAAA;;AAAA;AACtB,UAAG,CAAC,OAAKC,MAAT,EACE,OAAO,KAAP;AACF,YAAMd,aAAa,OAAKL,IAAL,CAAU,YAAV,CAAnB;AACA,YAAMoB,YAAY,OAAKpB,IAAL,CAAU,WAAV,CAAlB;AACA,YAAM,OAAKT,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACa,YAAWA,UAAZ,EAAzB,EAAkDO,MAAlD,CAAyD,EAACQ,WAAUA,SAAX,EAAzD,CAAN;AACA,aAAO,OAAKL,OAAL,CAAaK,SAAb,CAAP;AANsB;AAOvB;;AA7CiC,CAApC",
+    "file": "..\\..\\..\\src\\api\\controller\\user.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\nconst fs = require('fs');\nconst _ = require('lodash');\n\nmodule.exports = class extends Base {\n  async infoAction() {\n    const userInfo = await this.model('user').where({id: this.getLoginUserId()}).find();\n    delete userInfo.password;\n    return this.json(userInfo);\n  }\n\n  /**\n   * 保存用户头像\n   * @returns {Promise.<void>}\n   */\n  async avatarAction() {\n    let avatarBase64 = this.post('avatar');\n    if (think.isEmpty(avatarBase64)) {\n      return this.fail('获取图片失败');\n    }\n    avatarBase64 = avatarBase64.replace(/^data:image\\/\\w+;base64,/, \"\");\n    const user_email = this.post('user_email')\n    const that = this;\n\n    const dataBuffer = new Buffer(avatarBase64, 'base64');\n    const filename = '/static/avatar/'+user_email+'.jpg'\n    fs.writeFileSync(think.ROOT_PATH + '/www'+filename, dataBuffer);\n    // const filename = '/static/avatar/' + this.session('user_token').email + '.jpg';\n    // const filename = '/static/avatar/1641084984@qq.com,' /*+ think.uuid(32)*/ + '.jpg';\n    // const is = fs.createReadStream(avatarFile.path);\n    // const os = fs.createWriteStream(think.ROOT_PATH + '/www' + filename);\n    // is.pipe(os);\n\n    // // save in database\n    await this.model('user').where({user_email: user_email}).update({avatar:'http://47.107.155.139:8360' + filename+ '?'+think.uuid(32)})\n\n    return that.success({\n      name: filename,\n      fileUrl: 'http://47.107.155.139:8360' + filename+'?'+think.uuid(32)\n    });\n  }\n\n  async user_nameAction() {\n    if(!this.isPost)\n      return false\n    const user_email = this.post('user_email')\n    const user_name = this.post('user_name')\n    await this.model('user').where({user_email:user_email}).update({user_name:user_name})\n    return this.success(user_name)\n  }\n\n\n};\n"
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\upload.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "fs",
+        "module",
+        "exports",
+        "fileAction",
+        "file",
+        "think",
+        "isEmpty",
+        "fail",
+        "that",
+        "user_email",
+        "existsSync",
+        "ROOT_PATH",
+        "mkdirSync",
+        "is",
+        "createReadStream",
+        "path",
+        "os",
+        "createWriteStream",
+        "name",
+        "pipe",
+        "success"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACA,MAAMC,KAAKD,QAAQ,IAAR,CAAX;;AAEAE,OAAOC,OAAP,GAAiB,cAAcJ,IAAd,CAAmB;AAClC;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;;AAEA;AACA;AACA;AACA;AACA;;;AAIA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEMK,YAAN,GAAmB;AAAA;;AAAA;AACjB,YAAMC,OAAO,MAAKA,IAAL,CAAU,MAAV,CAAb;AACA,UAAIC,MAAMC,OAAN,CAAcF,IAAd,CAAJ,EAAyB;AACvB,eAAO,MAAKG,IAAL,CAAU,QAAV,CAAP;AACD;AACD,YAAMC,YAAN;AACA,YAAMC,aAAa,mBAAnB;AACA,UAAG,CAACT,GAAGU,UAAH,CAAcL,MAAMM,SAAN,GAAkB,QAAlB,GAA6BF,UAA3C,CAAJ,EAA4D;AAC1DT,WAAGY,SAAH,CAAaP,MAAMM,SAAN,GAAkB,QAAlB,GAA6BF,UAA1C;AACD;AACD,YAAMI,KAAKb,GAAGc,gBAAH,CAAoBV,KAAKW,IAAzB,CAAX;AACA,YAAMC,KAAKhB,GAAGiB,iBAAH,CAAqBZ,MAAMM,SAAN,GAAkB,QAAlB,GAA6BF,UAA7B,GAA0C,GAA1C,GAAgDL,KAAKc,IAA1E,CAAX;AACAL,SAAGM,IAAH,CAAQH,EAAR;;AAEA;AACA;AACA;AACA;AACA;AACA;AACA;AACA,aAAOR,KAAKY,OAAL,CAAahB,KAAKc,IAAlB,CAAP;AArBiB;AAsBlB;AAhEiC,CAApC",
+    "file": "..\\..\\..\\src\\api\\controller\\upload.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\nconst fs = require('fs');\n\nmodule.exports = class extends Base {\n  // async avatarAction() {\n  //   let avatarBase64 = this.post('avatar');\n  //   if (think.isEmpty(avatarBase64)) {\n  //     return this.fail('获取图片失败');\n  //   }\n  //   avatarBase64 = avatarBase64.replace(/^data:image\\/\\w+;base64,/, \"\");\n  //   const user_email = this.post('user_email')\n  //   const that = this;\n\n  //   const dataBuffer = new Buffer(avatarBase64, 'base64');\n  //   const filename = '/static/avatar/'+user_email+'.jpg'\n  //   fs.writeFileSync(think.ROOT_PATH + '/www'+filename, dataBuffer);\n  //   // const filename = '/static/avatar/' + this.session('user_token').email + '.jpg';\n  //   // const filename = '/static/avatar/1641084984@qq.com,' /*+ think.uuid(32)*/ + '.jpg';\n  //   // const is = fs.createReadStream(avatarFile.path);\n  //   // const os = fs.createWriteStream(think.ROOT_PATH + '/www' + filename);\n  //   // is.pipe(os);\n\n  //   // // save in database\n  //   await this.model('user').where({user_email: user_email}).update({avatar:'http://47.107.155.139:8360' + filename+ '?'+think.uuid(32)})\n\n  //   return that.success({\n  //     name: filename,\n  //     fileUrl: 'http://47.107.155.139:8360' + filename+'?'+think.uuid(32)\n  //   });\n  // }\n\n  \n\n  // async readAvatarAction() {\n  //   if (!this.isPost) {\n  //     return false;\n  //   }\n  //   const user_email = this.post('user_email')\n  //   const path = think.ROOT_PATH + '/www/static/avatar/' + user_email + '.jpg'\n  //   if(!fs.existsSync(path)) {\n  //     return false\n  //   }\n  //   return this.success(path)\n  // }\n\n  async fileAction() {\n    const file = this.file('file');\n    if (think.isEmpty(file)) {\n      return this.fail('获取文件失败');\n    }\n    const that = this\n    const user_email = '1641084984@qq.com'\n    if(!fs.existsSync(think.ROOT_PATH + '/file/' + user_email)) {\n      fs.mkdirSync(think.ROOT_PATH + '/file/' + user_email)\n    }\n    const is = fs.createReadStream(file.path);\n    const os = fs.createWriteStream(think.ROOT_PATH + '/file/' + user_email + '/' + file.name);\n    is.pipe(os);\n    \n    // const picName = think.uuid(32) + '.jpg';\n    // if (fs.existsSync(think.ROOT_PATH + '/pic' + picName))\n    //   return this.fail('图片已存在') \n    // const filename = '/'+picName;\n    // const is = fs.createReadStream(picFile.path);\n    // const os = fs.createWriteStream(think.ROOT_PATH + '/pic' + filename);\n    // is.pipe(os);\n    return that.success(file.name);\n  }\n};\n"
+    ]
+}

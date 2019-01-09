@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\remove.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "removeFriendAction",
+        "isPost",
+        "user_email",
+        "post",
+        "friend_email",
+        "model",
+        "where",
+        "delete",
+        "success",
+        "leaveGroupAction",
+        "group_id"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,oBAAN,GAA2B;AAAA;;AAAA;AAC1B,UAAG,CAAC,MAAKC,MAAT,EACE,OAAO,KAAP;AACF,YAAMC,aAAa,MAAKC,IAAL,CAAU,YAAV,CAAnB;AACA,YAAMC,eAAe,MAAKD,IAAL,CAAU,cAAV,CAArB;AACA,YAAM,MAAKE,KAAL,CAAW,cAAX,EAA2BC,KAA3B,CAAiC,EAACJ,YAAWA,UAAZ,EAAuBE,cAAaA,YAApC,EAAjC,EAAoFG,MAApF,EAAN;AACA,YAAM,MAAKF,KAAL,CAAW,cAAX,EAA2BC,KAA3B,CAAiC,EAACJ,YAAWE,YAAZ,EAAyBA,cAAaF,UAAtC,EAAjC,EAAoFK,MAApF,EAAN;AACA,aAAO,MAAKC,OAAL,CAAaJ,YAAb,CAAP;AAP0B;AAQ1B;;AAEKK,kBAAN,GAAyB;AAAA;;AAAA;AACxB,UAAG,CAAC,OAAKR,MAAT,EACE,OAAO,KAAP;AACF,YAAMC,aAAa,OAAKC,IAAL,CAAU,YAAV,CAAnB;AACA,YAAMO,WAAW,OAAKP,IAAL,CAAU,UAAV,CAAjB;AACA,YAAM,OAAKE,KAAL,CAAW,cAAX,EAA2BC,KAA3B,CAAiC,EAACJ,YAAWA,UAAZ,EAAuBQ,UAASA,QAAhC,EAAjC,EAA4EH,MAA5E,EAAN;AACA,aAAO,OAAKC,OAAL,CAAaE,QAAb,CAAP;AANwB;AAOxB;;AAlBiC,CAApC",
+    "file": "..\\..\\..\\src\\api\\controller\\remove.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\nmodule.exports = class extends Base {\r\n  async removeFriendAction() {\r\n  \tif(!this.isPost)\r\n  \t  return false\r\n  \tconst user_email = this.post('user_email')\r\n  \tconst friend_email = this.post('friend_email')\r\n  \tawait this.model('relationship').where({user_email:user_email,friend_email:friend_email}).delete()\r\n  \tawait this.model('relationship').where({user_email:friend_email,friend_email:user_email}).delete()\r\n  \treturn this.success(friend_email)\r\n  }\r\n\r\n  async leaveGroupAction() {\r\n  \tif(!this.isPost)\r\n  \t  return false\r\n  \tconst user_email = this.post('user_email')\r\n  \tconst group_id = this.post('group_id')\r\n  \tawait this.model('relationship').where({user_email:user_email,group_id:group_id}).delete()\r\n  \treturn this.success(group_id)\r\n  }\r\n\r\n  \r\n}"
+    ]
+}

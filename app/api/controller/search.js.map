@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\search.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "FriendAction",
+        "isPost",
+        "searchValue",
+        "post",
+        "user_email",
+        "data",
+        "trim",
+        "model",
+        "where",
+        "friend_email",
+        "join",
+        "user",
+        "on",
+        "field",
+        "select",
+        "includes",
+        "success",
+        "UserAction",
+        "user_name",
+        "addGroupSearchAction",
+        "group_id",
+        "length",
+        "group_name"
+    ],
+    "mappings": "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",
+    "file": "..\\..\\..\\src\\api\\controller\\search.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\n\nmodule.exports = class extends Base {\n\n  async FriendAction() {\n    if(!this.isPost)\n      return false\n    const searchValue = this.post('searchValue')\n    const user_email = this.post('user_email')\n    let data = []\n    if(searchValue.trim() === '') {\n      data = await this.model('relationship').where({['relationship.user_email']:user_email,friend_email:['!=',null]}).join({\n        user:{\n          join: 'left',\n          on: ['friend_email','user_email']\n        }\n      }).field('friend_email,user_name,avatar').select()\n    }\n    else {\n      if(searchValue.includes('@')) {\n        data = await this.model('relationship').where({['relationship.user_email']:user_email,friend_email:searchValue}).join({\n          user:{\n            join: 'left',\n            on: ['friend_email','user_email']\n          }\n        }).field('friend_email,user_name,avatar').select()\n      }\n      else {\n        data = await this.model('relationship').where({['relationship.user_email']:user_email,['user.user_name']:['like',`%${searchValue}%`]}).join({\n          user:{\n            join: 'left',\n            on: ['friend_email','user_email']\n          }\n        }).field('friend_email,user_name,avatar').select()\n      }\n    }\n    return this.success(data)\n  }\n\n  async UserAction() {\n    if(!this.isPost)\n      return false\n    const searchValue = this.post('value')\n    let data = []\n    if(searchValue.includes('@')) {\n      // 搜索邮箱(账号)\n      data = await this.model('user').where({ user_email: searchValue}).select() \n    }\n    else {\n      // 搜索名字(模糊查询)\n      data = await this.model('user').where({user_name: ['like',`%${searchValue}%`]}).select()\n    }\n    return this.success(data);\n  }\n\n  async addGroupSearchAction() {\n    if(!this.isPost)\n      return false\n    const searchValue = this.post('value')\n    let data = await this.model('group').where({group_id:searchValue}).select()\n    if(data.length === 0)\n      data = await this.model('group').where({group_name: ['like',`%${searchValue}%`]}).select()\n    return this.success(data)\n  }\n};\n"
+    ]
+}

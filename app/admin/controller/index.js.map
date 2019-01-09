@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\controller\\index.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "indexAction",
+        "success"
+    ],
+    "mappings": "AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAClCI,gBAAc;AACb,WAAO,KAAKC,OAAL,CAAa,OAAb,CAAP;AACC;AACD;AAJiC,CAApC",
+    "file": "..\\..\\..\\src\\admin\\controller\\index.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\n\nmodule.exports = class extends Base {\n  indexAction() {\n  \treturn this.success('aaaaa');\n    // return this.display();\n  }\n};\n"
+    ]
+}

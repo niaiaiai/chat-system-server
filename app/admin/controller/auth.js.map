@@ -1,0 +1,51 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\controller\\auth.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "loAction",
+        "username",
+        "post",
+        "password",
+        "admin",
+        "model",
+        "where",
+        "find",
+        "think",
+        "isEmpty",
+        "success",
+        "id",
+        "update",
+        "last_login_time",
+        "parseInt",
+        "Date",
+        "now",
+        "last_login_ip",
+        "ctx",
+        "ip",
+        "TokenSerivce",
+        "service",
+        "sessionKey",
+        "create",
+        "user_id",
+        "userInfo",
+        "avatar",
+        "admin_role_id",
+        "code",
+        "token",
+        "infoAction",
+        "get",
+        "access",
+        "user_name"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,UAAN,GAAiB;AAAA;;AAAA;AACf,YAAMC,WAAW,MAAKC,IAAL,CAAU,UAAV,CAAjB;AACA,YAAMC,WAAW,MAAKD,IAAL,CAAU,UAAV,CAAjB;;AAEA,YAAME,QAAQ,MAAM,MAAKC,KAAL,CAAW,OAAX,EAAoBC,KAApB,CAA0B,EAAEL,UAAUA,QAAZ,EAA1B,EAAkDM,IAAlD,EAApB;AACA,UAAIC,MAAMC,OAAN,CAAcL,KAAd,CAAJ,EAA0B;AACxB,eAAO,MAAKM,OAAL,EAAP;AACD;;AAED,UAAIP,aAAaC,MAAMD,QAAvB,EAAiC;AAC/B,eAAO,MAAKO,OAAL,EAAP;AACD;;AAED;AACA,YAAM,MAAKL,KAAL,CAAW,OAAX,EAAoBC,KAApB,CAA0B,EAAEK,IAAIP,MAAMO,EAAZ,EAA1B,EAA4CC,MAA5C,CAAmD;AACvDC,yBAAiBC,SAASC,KAAKC,GAAL,KAAa,IAAtB,CADsC;AAEvDC,uBAAe,MAAKC,GAAL,CAASC;AAF+B,OAAnD,CAAN;;AAKA,YAAMC,eAAe,MAAKC,OAAL,CAAa,OAAb,EAAsB,OAAtB,CAArB;AACA,YAAMC,aAAa,MAAMF,aAAaG,MAAb,CAAoB;AAC3CC,iBAASpB,MAAMO;AAD4B,OAApB,CAAzB;;AAIA,UAAIH,MAAMC,OAAN,CAAca,UAAd,CAAJ,EAA+B;AAC7B,eAAO,EAAP;AACD;;AAED,YAAMG,WAAW;AACfd,YAAIP,MAAMO,EADK;AAEfV,kBAAUG,MAAMH,QAFD;AAGfyB,gBAAQtB,MAAMsB,MAHC;AAIfC,uBAAevB,MAAMuB;AAJN,OAAjB;;AAOA,aAAO,MAAKjB,OAAL,CAAa,EAAEkB,MAAM,GAAR,EAAaC,OAAO5B,QAApB,EAAb,CAAP;AAnCe;AAoChB;;AAEK6B,YAAN,GAAkB;AAAA;;AAAA;AAChB,YAAMD,QAAQ,OAAKE,GAAL,CAAS,OAAT,CAAd;AACA,aAAO,OAAKrB,OAAL,CAAa,EAACkB,MAAK,GAAN,EAAUI,QAAO,CAACH,KAAD,EAAO,OAAP,CAAjB,EAAiCH,QAAO,oEAAxC,EAA6GF,SAAQ,OAArH,EAA6HS,WAAUJ,KAAvI,EAAb,CAAP;AAFgB;AAGjB;AA1CiC,CAApC",
+    "file": "..\\..\\..\\src\\admin\\controller\\auth.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\n\nmodule.exports = class extends Base {\n  async loAction() {\n    const username = this.post('userName');\n    const password = this.post('password');\n\n    const admin = await this.model('admin').where({ username: username }).find();\n    if (think.isEmpty(admin)) {\n      return this.success();\n    }\n\n    if (password !== admin.password) {\n      return this.success();\n    }\n\n    // 更新登录信息\n    await this.model('admin').where({ id: admin.id }).update({\n      last_login_time: parseInt(Date.now() / 1000),\n      last_login_ip: this.ctx.ip\n    });\n\n    const TokenSerivce = this.service('token', 'admin');\n    const sessionKey = await TokenSerivce.create({\n      user_id: admin.id\n    });\n\n    if (think.isEmpty(sessionKey)) {\n      return '';\n    }\n\n    const userInfo = {\n      id: admin.id,\n      username: admin.username,\n      avatar: admin.avatar,\n      admin_role_id: admin.admin_role_id\n    };\n\n    return this.success({ code: 200, token: username });\n  }\n\n  async infoAction(){\n    const token = this.get('token');\n    return this.success({code:200,access:[token,'admin'],avatar:'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',user_id:'14138',user_name:token});\n  }\n};\n"
+    ]
+}

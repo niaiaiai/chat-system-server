@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\controller\\unit.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "selectAction",
+        "success"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC3BI,eAAN,GAAqB;AAAA;;AAAA;AACnB,gBAAO,MAAKC,OAAL,EAAP;AADmB;AAEpB;AAHgC,CAApC",
+    "file": "..\\..\\..\\src\\admin\\controller\\unit.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n   async selectAction() {\r\n   \t return this.success();\r\n   }\r\n}"
+    ]
+}

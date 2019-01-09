@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\ws.js"
+    ],
+    "names": [
+        "module",
+        "exports",
+        "think",
+        "Controller",
+        "constructor",
+        "arg",
+        "openAction",
+        "console",
+        "log",
+        "success",
+        "closeAction",
+        "addUserAction",
+        "wsData",
+        "websocket",
+        "isWebsocket"
+    ],
+    "mappings": "AAAAA,OAAOC,OAAP,GAAiB,cAAcC,MAAMC,UAApB,CAA+B;AAC9CC,cAAY,GAAGC,GAAf,EAAoB;AAClB,UAAM,GAAGA,GAAT;AACD;AACDC,eAAa;AACXC,YAAQC,GAAR,CAAY,SAAZ;AACA,WAAO,KAAKC,OAAL,EAAP;AACD;AACDC,gBAAc;AACZH,YAAQC,GAAR,CAAY,UAAZ;AACA,WAAO,KAAKC,OAAL,EAAP;AACD;AACDE,kBAAgB;AACdJ,YAAQC,GAAR,CAAY,mBAAZ;AACAD,YAAQC,GAAR,CAAY,KAAKI,MAAjB,EAFc,CAEY;AAC1BL,YAAQC,GAAR,CAAY,KAAKK,SAAjB,EAHc,CAGe;AAC7BN,YAAQC,GAAR,CAAY,KAAKM,WAAjB,EAJc,CAIiB;AAC/B,WAAO,KAAKL,OAAL,EAAP;AACD;AAlB6C,CAAhD",
+    "file": "..\\..\\..\\src\\api\\controller\\ws.js",
+    "sourcesContent": [
+        "module.exports = class extends think.Controller {\r\n  constructor(...arg) {\r\n    super(...arg);\r\n  }\r\n  openAction() {\r\n    console.log('ws open');\r\n    return this.success();\r\n  }\r\n  closeAction() {\r\n    console.log('ws close');\r\n    return this.success();\r\n  }\r\n  addUserAction() {\r\n    console.log('addUserAction ...');\r\n    console.log(this.wsData); // this.req.websocketData, 'thinkjs'\r\n    console.log(this.websocket); // this.req.websocket, websocket instance\r\n    console.log(this.isWebsocket); // this.isMethod('WEBSOCKET'), true\r\n    return this.success();\r\n  }\r\n}"
+    ]
+}

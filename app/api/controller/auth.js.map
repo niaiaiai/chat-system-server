@@ -1,0 +1,43 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\auth.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "registerAction",
+        "isPost",
+        "email",
+        "post",
+        "emailData",
+        "model",
+        "where",
+        "user_email",
+        "select",
+        "think",
+        "isEmpty",
+        "fail",
+        "username",
+        "password",
+        "id",
+        "max",
+        "add",
+        "user_name",
+        "success",
+        "loginAction",
+        "data",
+        "find",
+        "session",
+        "logoutAction",
+        "getUserAction",
+        "token"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACA;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAClC;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;AACA;;AAEA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAEA;;AAEA;AACA;;AAEA;AACA;AACA;AACA;AACA;;AAEA;AACA;;AAEA;AACA;AACA;;AAEA;AACA;;AAEMI,gBAAN,GAAuB;AAAA;;AAAA;AACrB,UAAI,CAAC,MAAKC,MAAV,EAAkB;AAChB,eAAO,KAAP;AACD;AACD,YAAMC,QAAQ,MAAKC,IAAL,CAAU,OAAV,CAAd;AACA,YAAMC,YAAY,MAAM,MAAKC,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,YAAWL,KAAZ,EAAzB,EAA6CM,MAA7C,EAAxB;AACA,UAAG,CAACC,MAAMC,OAAN,CAAcN,SAAd,CAAJ,EAA6B;AAC3B,eAAO,MAAKO,IAAL,CAAUT,QAAM,mBAAhB,CAAP;AACD;AACD,YAAMU,WAAW,MAAKT,IAAL,CAAU,UAAV,CAAjB;AACA,YAAMU,WAAW,MAAKV,IAAL,CAAU,UAAV,CAAjB;AACA,YAAMW,KAAK,MAAM,MAAKT,KAAL,CAAW,MAAX,EAAmBU,GAAnB,CAAuB,IAAvB,CAAjB;AACA,YAAM,MAAKV,KAAL,CAAW,MAAX,EAAmBW,GAAnB,CAAuB,EAACF,IAAGA,KAAG,CAAP,EAASG,WAAUL,QAAnB,EAA4BC,UAASA,QAArC,EAA8CN,YAAWL,KAAzD,EAAvB,CAAN;AACA,aAAO,MAAKgB,OAAL,CAAahB,QAAM,OAAnB,CAAP;AAbqB;AActB;;AAEKiB,aAAN,GAAoB;AAAA;;AAAA;AAClB,UAAI,CAAC,OAAKlB,MAAV,EAAkB;AAChB,eAAO,KAAP;AACD;AACD,YAAMC,QAAQ,OAAKC,IAAL,CAAU,OAAV,CAAd;AACA,YAAMU,WAAW,OAAKV,IAAL,CAAU,UAAV,CAAjB;AACA,YAAMiB,OAAO,MAAM,OAAKf,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,YAAWL,KAAZ,EAAmBW,UAASA,QAA5B,EAAzB,EAAgEQ,IAAhE,EAAnB;AACA;AACA,YAAM,OAAKC,OAAL,CAAa,YAAb,EAA2BF,IAA3B,CAAN;AACA,aAAO,OAAKF,OAAL,CAAaE,IAAb,CAAP;AATkB;AAUnB;;AAEKG,cAAN,GAAqB;AAAA;;AAAA;AACnB,YAAM,OAAKD,OAAL,EAAN;AACA,aAAO,OAAKJ,OAAL,EAAP;AAFmB;AAGpB;;AAEKM,eAAN,GAAsB;AAAA;;AAAA;AACpB,UAAG,CAAC,OAAKvB,MAAT,EAAiB;AACf,eAAO,KAAP;AACD;AACD,YAAMwB,QAAQ,MAAM,OAAKH,OAAL,CAAa,YAAb,CAApB;AACA;AACA,UAAGb,MAAMC,OAAN,CAAce,KAAd,CAAH,EAAwB;AACtB,eAAO,OAAKd,IAAL,EAAP;AACD;;AAED,aAAO,OAAKO,OAAL,CAAaO,KAAb,CAAP;AAVoB;AAWrB;AA3HiC,CAApC",
+    "file": "..\\..\\..\\src\\api\\controller\\auth.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\n// const rp = require('request-promise');\n\nmodule.exports = class extends Base {\n  // async loginByWeixinAction() {\n  //   const code = this.post('code');\n  //   const fullUserInfo = this.post('userInfo');\n  //   const userInfo = fullUserInfo.userInfo;\n  //   const clientIp = ''; // 暂时不记录 ip\n\n  //   // 获取openid\n  //   const options = {\n  //     method: 'GET',\n  //     url: 'https://api.weixin.qq.com/sns/jscode2session',\n  //     qs: {\n  //       grant_type: 'authorization_code',\n  //       js_code: code,\n  //       secret: think.config('weixin.secret'),\n  //       appid: think.config('weixin.appid')\n  //     }\n  //   };\n\n  //   let sessionData = await rp(options);\n  //   sessionData = JSON.parse(sessionData);\n  //   if (!sessionData.openid) {\n  //     return this.fail('登录失败');\n  //   }\n\n  //   // 验证用户信息完整性\n  //   const crypto = require('crypto');\n  //   const sha1 = crypto.createHash('sha1').update(fullUserInfo.rawData + sessionData.session_key).digest('hex');\n  //   if (fullUserInfo.signature !== sha1) {\n  //     return this.fail('登录失败');\n  //   }\n\n  //   // 解释用户数据\n  //   const WeixinSerivce = this.service('weixin', 'api');\n  //   const weixinUserInfo = await WeixinSerivce.decryptUserInfoData(sessionData.session_key, fullUserInfo.encryptedData, fullUserInfo.iv);\n  //   if (think.isEmpty(weixinUserInfo)) {\n  //     return this.fail('登录失败');\n  //   }\n\n  //   // 根据openid查找用户是否已经注册\n  //   let userId = await this.model('user').where({ weixin_openid: sessionData.openid }).getField('id', true);\n  //   if (think.isEmpty(userId)) {\n  //     // 注册\n  //     userId = await this.model('user').add({\n  //       username: '微信用户' + think.uuid(6),\n  //       password: sessionData.openid,\n  //       register_time: parseInt(new Date().getTime() / 1000),\n  //       register_ip: clientIp,\n  //       last_login_time: parseInt(new Date().getTime() / 1000),\n  //       last_login_ip: clientIp,\n  //       mobile: '',\n  //       weixin_openid: sessionData.openid,\n  //       avatar: userInfo.avatarUrl || '',\n  //       gender: userInfo.gender || 1, // 性别 0：未知、1：男、2：女\n  //       nickname: userInfo.nickName\n  //     });\n  //   }\n\n  //   sessionData.user_id = userId;\n\n  //   // 查询用户信息\n  //   const newUserInfo = await this.model('user').field(['id', 'username', 'nickname', 'gender', 'avatar', 'birthday']).where({ id: userId }).find();\n\n  //   // 更新登录信息\n  //   userId = await this.model('user').where({ id: userId }).update({\n  //     last_login_time: parseInt(new Date().getTime() / 1000),\n  //     last_login_ip: clientIp\n  //   });\n\n  //   const TokenSerivce = this.service('token', 'api');\n  //   const sessionKey = await TokenSerivce.create(sessionData);\n\n  //   if (think.isEmpty(newUserInfo) || think.isEmpty(sessionKey)) {\n  //     return this.fail('登录失败');\n  //   }\n\n  //   return this.success({ token: sessionKey, userInfo: newUserInfo });\n  // }\n\n  async registerAction() {\n    if (!this.isPost) {\n      return false;\n    }\n    const email = this.post('email')\n    const emailData = await this.model('user').where({user_email:email}).select()\n    if(!think.isEmpty(emailData)){\n      return this.fail(email+' 这个邮箱已被注册，请重新输入邮箱');\n    }\n    const username = this.post('username')\n    const password = this.post('password')\n    const id = await this.model('user').max('id')\n    await this.model('user').add({id:id+1,user_name:username,password:password,user_email:email})\n    return this.success(email+' 注册成功')\n  }\n\n  async loginAction() {\n    if (!this.isPost) {\n      return false;\n    }\n    const email = this.post('email');\n    const password = this.post('password')\n    const data = await this.model('user').where({user_email:email, password:password}).find()\n    //session\n    await this.session('user_token', data);\n    return this.success(data)\n  }\n\n  async logoutAction() {\n    await this.session();\n    return this.success();\n  }\n\n  async getUserAction() {\n    if(!this.isPost) {\n      return false\n    }\n    const token = await this.session('user_token');\n    // const token = this.getUser()\n    if(think.isEmpty(token)){\n      return this.fail();\n    }\n    \n    return this.success(token)\n  }\n};\n"
+    ]
+}

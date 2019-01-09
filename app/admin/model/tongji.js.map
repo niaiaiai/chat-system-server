@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\model\\tongji.js"
+    ],
+    "names": [
+        "module",
+        "exports",
+        "think",
+        "Model",
+        "getStore",
+        "dateRange",
+        "data",
+        "model",
+        "where",
+        "add_time",
+        "join",
+        "order_goods",
+        "on",
+        "product",
+        "select"
+    ],
+    "mappings": ";;AAAAA,OAAOC,OAAP,GAAiB,cAAcC,MAAMC,KAApB,CAA0B;AACnCC,UAAN,CAAeC,SAAf,EAA0B;AAAA;;AAAA;AACzB,YAAMC,OAAO,MAAM,MAAKC,KAAL,CAAW,OAAX,EAAoBC,KAApB,CAA0B,EAACC,UAAS,CAAC,SAAD,EAAWJ,UAAU,CAAV,CAAX,EAAwBA,UAAU,CAAV,CAAxB,CAAV,EAA1B,EAA4EK,IAA5E,CAAiF;AACjGC,qBAAa;AACZD,gBAAM,OADM;AAEZE,cAAI,CAAC,UAAD,EAAa,UAAb;AAFQ,SADoF;AAKjGC,iBAAS;AACRD,cAAI,CAAC,UAAD,EAAY,UAAZ;AADI;AALwF,OAAjF,EAQfE,MARe,EAAnB;;AAUC,aAAOR,IAAP;AAXwB;AAYzB;AAbwC,CAA3C",
+    "file": "..\\..\\..\\src\\admin\\model\\tongji.js",
+    "sourcesContent": [
+        "module.exports = class extends think.Model {\r\n  async getStore(dateRange) {\r\n  \tconst data = await this.model('order').where({add_time:['between',dateRange[0],dateRange[1]]}).join({\r\n      order_goods: {\r\n      \tjoin: 'inner',\r\n      \ton: ['order_sn', 'order_id']\r\n      },\r\n      product: {\r\n      \ton: ['goods_id','goods_id']\r\n      }\r\n    }).select()\r\n\r\n    return data\r\n  }\r\n}"
+    ]
+}

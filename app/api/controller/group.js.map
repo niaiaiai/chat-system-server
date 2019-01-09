@@ -1,0 +1,48 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\group.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "createAction",
+        "isPost",
+        "name",
+        "post",
+        "leader",
+        "idgroup",
+        "model",
+        "max",
+        "group_id",
+        "Math",
+        "round",
+        "random",
+        "existGroup",
+        "where",
+        "select",
+        "length",
+        "add",
+        "id",
+        "group_name",
+        "data",
+        "idrelationship",
+        "user_email",
+        "success",
+        "getGroupAction",
+        "email",
+        "join",
+        "group",
+        "on",
+        "field",
+        "getGroupMembersAction",
+        "user"
+    ],
+    "mappings": "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",
+    "file": "..\\..\\..\\src\\api\\controller\\group.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\nmodule.exports = class extends Base {\r\n  async createAction() {\r\n  \tif(!this.isPost)\r\n  \t  return false\r\n  \tconst name = this.post('name')\r\n  \tconst leader = this.post('leader')\r\n  \tconst idgroup = await this.model('group').max('id')\r\n  \tlet group_id = Math.round(Math.random()*10000)\r\n  \tlet existGroup = await this.model('group').where({group_id:group_id}).select()\r\n  \twhile(existGroup.length > 0) {\r\n  \t\tgroup_id = Math.round(Math.random()*10000)\r\n  \t\texistGroup = await this.model('group').where({group_id:group_id}).select()\r\n  \t}\r\n\r\n  \tawait this.model('group').add({id:idgroup+1,group_id:group_id,group_name:name,leader:leader})\r\n  \tconst data = await this.model('group').where({id:idgroup+1}).select()\r\n  \tif(data.length === 0)\r\n  \t\treturn false\r\n\r\n  \tconst idrelationship = await this.model('relationship').max('id')\r\n  \tawait this.model('relationship').add({id:idrelationship+1,user_email:leader,group_id:data[0].group_id})\r\n  \treturn this.success(data)\r\n  \t// join group\r\n  }\r\n\r\n  async getGroupAction() {\r\n  \tif(!this.isPost){\r\n      return false;\r\n    }\r\n    const email = this.post('email')\r\n    const data = await this.model('relationship').where({user_email:email,['relationship.group_id']:['!=',null]}).join({\r\n    \tgroup:{\r\n    \t\tjoin: 'left',\r\n    \t\ton: ['group_id','group_id']\r\n    \t}\r\n    }).field('leader,relationship.group_id,group_name').select()\r\n  \treturn this.success(data)\r\n  }\r\n\r\n  async getGroupMembersAction() {\r\n  \tif(!this.isPost)\r\n  \t\treturn false\r\n  \tconst group_id = this.post('group_id')\r\n  \tconst data = await this.model('relationship').where({group_id:group_id}).join({\r\n  \t\tuser:{\r\n  \t\t\tjoin: 'left',\r\n  \t\t\ton: ['user_email','user_email']\r\n  \t\t}\r\n  \t}).field('relationship.user_email,user_name').select()\r\n  \treturn this.success(data)\r\n  }\r\n}"
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\common\\config\\middleware.js"
+    ],
+    "names": [
+        "path",
+        "require",
+        "isDev",
+        "think",
+        "env",
+        "kcors",
+        "module",
+        "exports",
+        "handle",
+        "options",
+        "origin",
+        "ctx",
+        "allowMethods",
+        "allowHeaders",
+        "credentials",
+        "logRequest",
+        "sendResponseTime",
+        "enable",
+        "root",
+        "join",
+        "ROOT_PATH",
+        "publicPath",
+        "isCli",
+        "debug",
+        "defaultModule",
+        "defaultController",
+        "defaultAction"
+    ],
+    "mappings": "AAAA,MAAMA,OAAOC,QAAQ,MAAR,CAAb;AACA,MAAMC,QAAQC,MAAMC,GAAN,KAAc,aAA5B;AACA,MAAMC,QAAQJ,QAAQ,OAAR,CAAd;;AAEAK,OAAOC,OAAP,GAAiB,CACf;AACEC,UAAQH,KADV,EACiB;AACfI,WAAS;AACPC,YAAQ,UAASC,GAAT,EAAc;AACpB,aAAO,uBAAP;AACD,KAHM;AAIPC,kBAAc,CAAC,KAAD,EAAO,MAAP,EAAc,KAAd,EAAoB,MAApB,EAA2B,QAA3B,EAAoC,OAApC,EAA4C,SAA5C,CAJP;AAKPC,kBAAc,CAAC,cAAD,CALP;AAMPC,iBAAa;AANN;AAFX,CADe,EAYf;AACEN,UAAQ,MADV;AAEEC,WAAS;AACPM,gBAAYb,KADL;AAEPc,sBAAkBd;AAFX;AAFX,CAZe,EAmBf;AACEM,UAAQ,UADV;AAEES,UAAQf,KAFV;AAGEO,WAAS;AACPS,UAAMlB,KAAKmB,IAAL,CAAUhB,MAAMiB,SAAhB,EAA2B,KAA3B,CADC;AAEPC,gBAAY;AAFL;AAHX,CAnBe,EA2Bf;AACEb,UAAQ,OADV;AAEES,UAAQ,CAACd,MAAMmB,KAFjB;AAGEb,WAAS;AACPc,WAAOrB;AADA;AAHX,CA3Be,EAkCf;AACEM,UAAQ,SADV;AAEEC,WAAS;AAFX,CAlCe,EAsCf;AACED,UAAQ,QADV;AAEEC,WAAS;AACPe,mBAAe,OADR;AAEPC,uBAAmB,MAFZ;AAGPC,mBAAe;AAHR;AAFX,CAtCe,EA8Cf,OA9Ce,EA+Cf,YA/Ce,CAAjB",
+    "file": "..\\..\\..\\src\\common\\config\\middleware.js",
+    "sourcesContent": [
+        "const path = require('path');\nconst isDev = think.env === 'development';\nconst kcors = require('kcors');\n\nmodule.exports = [\n  {\n    handle: kcors, // 处理跨域\n    options: {\n      origin: function(ctx) {\n        return 'http://localhost:9080'\n      },\n      allowMethods: ['GET','HEAD','PUT','POST','DELETE','PATCH','OPTIONS'],\n      allowHeaders: ['content-type'],\n      credentials: true\n    }\n  },\n  {\n    handle: 'meta',\n    options: {\n      logRequest: isDev,\n      sendResponseTime: isDev\n    }\n  },\n  {\n    handle: 'resource',\n    enable: isDev,\n    options: {\n      root: path.join(think.ROOT_PATH, 'www'),\n      publicPath: /^\\/(static|favicon\\.ico)/\n    }\n  },\n  {\n    handle: 'trace',\n    enable: !think.isCli,\n    options: {\n      debug: isDev\n    }\n  },\n  {\n    handle: 'payload',\n    options: {}\n  },\n  {\n    handle: 'router',\n    options: {\n      defaultModule: 'admin',\n      defaultController: 'auth',\n      defaultAction: 'login'\n    }\n  },\n  'logic',\n  'controller'\n];\n"
+    ]
+}

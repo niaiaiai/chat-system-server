@@ -1,0 +1,32 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\api\\controller\\friends.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "getFriends",
+        "user_email",
+        "data",
+        "model",
+        "where",
+        "friend_email",
+        "join",
+        "user",
+        "on",
+        "field",
+        "select",
+        "getFriendsAction",
+        "isPost",
+        "post",
+        "success"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,YAAN,CAAiBC,UAAjB,EAA6B;AAAA;;AAAA;AAC5B,YAAMC,OAAO,MAAM,MAAKC,KAAL,CAAW,cAAX,EAA2BC,KAA3B,CAAiC,EAAC,CAAC,yBAAD,GAA4BH,UAA7B,EAAwCI,cAAa,CAAC,IAAD,EAAM,IAAN,CAArD,EAAjC,EAAoGC,IAApG,CAAyG;AACzHC,cAAK;AACHD,gBAAM,MADH;AAEHE,cAAI,CAAC,cAAD,EAAgB,YAAhB;AAFD;AADoH,OAAzG,EAKfC,KALe,CAKT,+BALS,EAKwBC,MALxB,EAAnB;AAMC,aAAOR,IAAP;AAP2B;AAQ5B;;AAEKS,kBAAN,GAAyB;AAAA;;AAAA;AACvB,UAAG,CAAC,OAAKC,MAAT,EAAgB;AACd,eAAO,KAAP;AACD;AACD,YAAMX,aAAa,OAAKY,IAAL,CAAU,OAAV,CAAnB;AACA,YAAMX,OAAO,MAAM,OAAKF,UAAL,CAAgBC,UAAhB,CAAnB;AACA;AACA;AACA;AACA;AACA;AACA;AACA,aAAO,OAAKa,OAAL,CAAaZ,IAAb,CAAP;AAZuB;AAaxB;AAxBiC,CAApC",
+    "file": "..\\..\\..\\src\\api\\controller\\friends.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n  async getFriends(user_email) {\r\n  \tconst data = await this.model('relationship').where({['relationship.user_email']:user_email,friend_email:['!=',null]}).join({\r\n      user:{\r\n        join: 'left',\r\n        on: ['friend_email','user_email']\r\n      }\r\n    }).field('friend_email,user_name,avatar').select()\r\n    return data\r\n  }\r\n\r\n  async getFriendsAction() {\r\n    if(!this.isPost){\r\n      return false;\r\n    }\r\n    const user_email = this.post('email')\r\n    const data = await this.getFriends(user_email)\r\n    // const data = await this.model('relationship').where({['relationship.user_email']:email,friend_email:['!=',null]}).join({\r\n    //   user:{\r\n    //     join: 'left',\r\n    //     on: ['friend_email','user_email']\r\n    //   }\r\n    // }).field('friend_email,user_name,avatar').select()\r\n    return this.success(data)\r\n  }\r\n}"
+    ]
+}

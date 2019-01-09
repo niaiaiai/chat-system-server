@@ -1,0 +1,45 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\controller\\promotion.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "indexAction",
+        "data",
+        "model",
+        "select",
+        "success",
+        "addAction",
+        "isPost",
+        "id",
+        "max",
+        "name",
+        "post",
+        "type_money",
+        "send_start_date",
+        "insertData",
+        "send_type",
+        "min_amount",
+        "max_amount",
+        "send_end_date",
+        "use_start_date",
+        "use_end_date",
+        "min_goods_amount",
+        "add",
+        "editAction",
+        "where",
+        "update",
+        "destroyAction",
+        "limit",
+        "delete"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,aAAN,GAAoB;AAAA;;AAAA;AACnB,YAAMC,OAAO,MAAM,MAAKC,KAAL,CAAW,QAAX,EAAqBC,MAArB,EAAnB;AACA,aAAO,MAAKC,OAAL,CAAaH,IAAb,CAAP;AAFmB;AAGnB;;AAED;AACA;AACA;;AAEMI,WAAN,GAAkB;AAAA;;AAAA;AACjB,UAAI,CAAC,OAAKC,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,MAAM,OAAKL,KAAL,CAAW,QAAX,EAAqBM,GAArB,CAAyB,IAAzB,CAAjB;AACA,YAAMC,OAAO,OAAKC,IAAL,CAAU,MAAV,CAAb;AACA,YAAMC,aAAa,OAAKD,IAAL,CAAU,YAAV,CAAnB;AACA,YAAME,kBAAkB,OAAKF,IAAL,CAAU,iBAAV,CAAxB;AACA,UAAIG,aAAa,EAACN,IAAIA,KAAG,CAAR,EAAWE,MAAKA,IAAhB,EAAqBE,YAAWA,UAAhC,EAA2CG,WAAWP,KAAG,CAAzD,EAA4DQ,YAAW,CAAvE,EAAyEC,YAAW,CAApF,EAAsFJ,iBAAgBA,eAAtG,EAAsHK,eAAc,CAApI,EAAsIC,gBAAe,CAArJ,EAAuJC,cAAa,CAApK,EAAsKC,kBAAiB,CAAvL,EAAjB;AACA,YAAM,OAAKlB,KAAL,CAAW,QAAX,EAAqBmB,GAArB,CAAyBR,UAAzB,CAAN;AACA,aAAO,OAAKT,OAAL,CAAaS,UAAb,CAAP;AAVgB;AAWjB;;AAEKS,YAAN,GAAmB;AAAA;;AAAA;AAClB,UAAI,CAAC,OAAKhB,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,OAAKG,IAAL,CAAU,IAAV,CAAX;AACA,YAAMD,OAAO,OAAKC,IAAL,CAAU,MAAV,CAAb;AACA,YAAMC,aAAa,OAAKD,IAAL,CAAU,YAAV,CAAnB;AACA,YAAME,kBAAkB,OAAKF,IAAL,CAAU,iBAAV,CAAxB;AACA,YAAM,OAAKR,KAAL,CAAW,QAAX,EAAqBqB,KAArB,CAA2B,EAAChB,IAAGA,EAAJ,EAA3B,EAAoCiB,MAApC,CAA2C,EAACf,MAAKA,IAAN,EAAWE,YAAWA,UAAtB,EAAiCC,iBAAgBA,eAAjD,EAA3C,CAAN;AACA,aAAO,OAAKR,OAAL,EAAP;AATiB;AAUlB;;AAEKqB,eAAN,GAAsB;AAAA;;AAAA;AACrB,UAAI,CAAC,OAAKnB,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,OAAKG,IAAL,CAAU,IAAV,CAAX;AACA,YAAM,OAAKR,KAAL,CAAW,QAAX,EAAqBqB,KAArB,CAA2B,EAAChB,IAAGA,EAAJ,EAA3B,EAAoCmB,KAApC,CAA0C,CAA1C,EAA6CC,MAA7C,EAAN;AACA,aAAO,OAAKvB,OAAL,EAAP;AANoB;AAOrB;AA1CiC,CAApC",
+    "file": "..\\..\\..\\src\\admin\\controller\\promotion.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n  async indexAction() {\r\n  \tconst data = await this.model('coupon').select()\r\n  \treturn this.success(data)\r\n  }\r\n\r\n  // async discountAction() {\r\n  //   const data = await this.model()\r\n  // }\r\n\r\n  async addAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = await this.model('coupon').max('id')\r\n    const name = this.post('name')\r\n    const type_money = this.post('type_money')\r\n    const send_start_date = this.post('send_start_date')\r\n    let insertData = {id:(id+1),name:name,type_money:type_money,send_type:(id+1),min_amount:0,max_amount:0,send_start_date:send_start_date,send_end_date:0,use_start_date:0,use_end_date:0,min_goods_amount:0}\r\n    await this.model('coupon').add(insertData)\r\n    return this.success(insertData)\r\n  }\r\n\r\n  async editAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = this.post('id')\r\n    const name = this.post('name')\r\n    const type_money = this.post('type_money')\r\n    const send_start_date = this.post('send_start_date')\r\n    await this.model('coupon').where({id:id}).update({name:name,type_money:type_money,send_start_date:send_start_date})\r\n    return this.success()\r\n  }\r\n\r\n  async destroyAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = this.post('id')\r\n    await this.model('coupon').where({id:id}).limit(1).delete()\r\n    return this.success()\r\n  }\r\n}"
+    ]
+}

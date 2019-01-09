@@ -1,0 +1,36 @@
+{
+    "version": 3,
+    "sources": [
+        "..\\..\\..\\src\\admin\\controller\\vip.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "indexAction",
+        "data",
+        "model",
+        "select",
+        "success",
+        "editAction",
+        "isPost",
+        "id",
+        "post",
+        "name",
+        "description",
+        "where",
+        "update",
+        "addAction",
+        "max",
+        "add",
+        "destroyAction",
+        "limit",
+        "delete"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,aAAN,GAAoB;AAAA;;AAAA;AACnB,YAAMC,OAAO,MAAM,MAAKC,KAAL,CAAW,KAAX,EAAkBC,MAAlB,EAAnB;AACA,aAAO,MAAKC,OAAL,CAAaH,IAAb,CAAP;AAFmB;AAGnB;;AAEKI,YAAN,GAAmB;AAAA;;AAAA;AAClB,UAAI,CAAC,OAAKC,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,OAAKC,IAAL,CAAU,IAAV,CAAX;AACA,YAAMC,OAAO,OAAKD,IAAL,CAAU,MAAV,CAAb;AACA,YAAME,cAAc,OAAKF,IAAL,CAAU,aAAV,CAApB;AACA,YAAMP,OAAO,MAAM,OAAKC,KAAL,CAAW,KAAX,EAAkBS,KAAlB,CAAwB,EAACJ,IAAGA,EAAJ,EAAxB,EAAiCK,MAAjC,CAAwC,EAACH,MAAKA,IAAN,EAAWC,aAAYA,WAAvB,EAAxC,CAAnB;AACA,aAAO,OAAKN,OAAL,EAAP;AARiB;AASlB;;AAEKS,WAAN,GAAkB;AAAA;;AAAA;AACjB,UAAI,CAAC,OAAKP,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,MAAM,OAAKL,KAAL,CAAW,KAAX,EAAkBY,GAAlB,CAAsB,IAAtB,CAAjB;AACA,YAAML,OAAO,OAAKD,IAAL,CAAU,MAAV,CAAb;AACA,YAAME,cAAc,OAAKF,IAAL,CAAU,aAAV,CAApB;AACA,YAAM,OAAKN,KAAL,CAAW,KAAX,EAAkBa,GAAlB,CAAsB,EAACR,IAAIA,KAAG,CAAR,EAAWE,MAAKA,IAAhB,EAAqBC,aAAYA,WAAjC,EAAtB,CAAN;AACA,aAAO,OAAKN,OAAL,CAAa,EAACG,IAAIA,KAAG,CAAR,EAAWE,MAAKA,IAAhB,EAAqBC,aAAYA,WAAjC,EAAb,CAAP;AARgB;AASjB;;AAEKM,eAAN,GAAsB;AAAA;;AAAA;AACrB,UAAI,CAAC,OAAKV,MAAV,EAAkB;AACf,eAAO,KAAP;AACD;AACD,YAAMC,KAAK,OAAKC,IAAL,CAAU,IAAV,CAAX;AACA,YAAM,OAAKN,KAAL,CAAW,KAAX,EAAkBS,KAAlB,CAAwB,EAACJ,IAAGA,EAAJ,EAAxB,EAAiCU,KAAjC,CAAuC,CAAvC,EAA0CC,MAA1C,EAAN;AACA,aAAO,OAAKd,OAAL,EAAP;AANoB;AAOrB;AAnCiC,CAApC",
+    "file": "..\\..\\..\\src\\admin\\controller\\vip.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n  async indexAction() {\r\n  \tconst data = await this.model('vip').select()\r\n  \treturn this.success(data)\r\n  }\r\n\r\n  async editAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = this.post('id')\r\n    const name = this.post('name')\r\n    const description = this.post('description')\r\n    const data = await this.model('vip').where({id:id}).update({name:name,description:description})\r\n    return this.success()\r\n  }\r\n\r\n  async addAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = await this.model('vip').max('id')\r\n    const name = this.post('name')\r\n    const description = this.post('description')\r\n    await this.model('vip').add({id:(id+1),name:name,description:description})\r\n    return this.success({id:(id+1),name:name,description:description})\r\n  }\r\n\r\n  async destroyAction() {\r\n  \tif (!this.isPost) {\r\n      return false;\r\n    }\r\n    const id = this.post('id')\r\n    await this.model('vip').where({id:id}).limit(1).delete()\r\n    return this.success()\r\n  }\r\n}"
+    ]
+}
