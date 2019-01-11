@@ -76,21 +76,22 @@ module.exports = class extends Base {
  
 
 
-  async receivemq(email) {
-    const channel = await this.createmqchannel()
-    if(think.isEmpty(channel))
-      return
-
-    return new Promise((resolve,reject) => {
+  async receivemq(email,channel) {
+    // const channel = await this.createmqchannel()
+    // if(think.isEmpty(channel))
+    //   return
       const q = email
       channel.checkQueue(q)
-        channel.assertQueue(q, {durable: true});
-        channel.consume(q, (data) => {
-          channel.ack(data);
-          resolve(JSON.parse(data.content))
-        }, {noAck: false});
-        channel.close()
+      channel.assertQueue(q, {durable: true});
+    const promise = new Promise((resolve,reject) => {
+      const msg = []
+      channel.consume(q, (data) => {
+        msg.push(JSON.parse(data.content.toString()))
+        resolve(msg)
+        channel.ack(data);
+      }, {noAck: false});
     })
+    return promise
   }
 
 
@@ -112,14 +113,16 @@ module.exports = class extends Base {
   	groups.map((n) => {
   	  this.websocket.join(n.group_id);
   	})
-  	
-  	await this.receivemq(email)
-    .then(resolve => {
-      console.log(resolve)
-      this.emit('message', {sendObj:resolve} )
-    })
-    .catch(reject => console.log('error'))
-    // console.log(msg)
+
+  	const channel = await this.createmqchannel();
+    if(think.isEmpty(channel))
+      return
+
+  	const msg = await this.receivemq(email,channel)
+    console.log(msg)
+    channel.close()
+    msg.map((n) => this.emit('message', {sendObj:n} ))
+    
   }
 
   async closeAction() {
@@ -192,7 +195,14 @@ module.exports = class extends Base {
   	  	})
   	  	Object.assign(sendObj,{id:to},{data:data})
   	  	this.ctx.app.websocket.io.in(to).emit('message', {sendObj});
-  	  // }
+
+        const members = await this.model('relationship').where({group_id:to}).field('user_email').select()
+        members.map((n) => {
+          if(think.isEmpty(socketObject[n.user_email])) {
+            this.assertmq(sendObj,n.user_email)
+          }
+        })
+  	  
   	}
   }
 
