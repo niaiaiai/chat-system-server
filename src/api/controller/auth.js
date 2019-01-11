@@ -109,7 +109,7 @@ module.exports = class extends Base {
   }
 
   async logoutAction() {
-    await this.session();
+    await this.session(null);
     return this.success();
   }
 

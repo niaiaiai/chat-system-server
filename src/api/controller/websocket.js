@@ -1,6 +1,22 @@
 const Base = require('./base.js');
+import amqp from 'amqplib/callback_api';
 const socketObject = {}
-// let conn = ''
+let conn = ''
+connectmq().then((result) => {
+      conn = result
+      console.log('连接上mq')
+    }).catch((error) => console.log(error))
+
+function connectmq() {
+    return new Promise((resolve,reject) => {
+      amqp.connect('amqp://localhost', function (err, conn) {
+        if(err)
+          reject(err)
+        else
+          resolve(conn)
+       });
+    })
+  }
 // this.websocket是指客户端的socket
 // this就是this.websocket
 // 所有的socket怎么得？
@@ -12,52 +28,109 @@ module.exports = class extends Base {
   	const data = await this.model('relationship').where({user_email:user_email,group_id:['!=',null]}).select()
   	return data
   }
-/*
-  async connectmq() {
-  	return new Promise((resolve,reject) => {
-  	  amqp.connect('amqp://localhost', function (err, conn) {
-        if(err)
-          reject(err)
-        else
-          resolve(conn)
-	  });
-    }
-  }
-  async assertmq(data) {
 
-  }
- */
-  async openAction() {
-  	// 获取用户邮箱
-  	const user = await this.session('user_token');
-  	if(think.isEmpty(user)){
-      return ;
+
+  /*
+    data: {
+      sendObj: {
+        id: 'toemail',
+        data: [
+        {
+          fromUser: {
+            user_email: '',
+            user_name: '',
+            avatar: '',
+          },
+          data: '',
+          date: '',
+          time: '',
+          isOnline: true || false,
+          }
+        ]
+      }
     }
-  	console.log('user email: ' + user.user_email)
+  */
+  async assertmq(data,to) {
+    await conn.createChannel((err, channel) => {
+
+      const q = to;
+
+      channel.assertQueue(q, { durable: true });
+      // Note: on Node 6 Buffer.from(msg) should be used
+      channel.sendToQueue(q, new Buffer(JSON.stringify(data)), { persistent: true });
+      console.log(data);
+      channel.close()
+    });
+  }
+
+  async createmqchannel() {
+    return new Promise((resolve,reject) => {
+      conn.createChannel((err,ch) => {
+        // if(err)
+        //   reject(err)
+        // else
+          resolve(ch)
+      })
+    })
+  }
+ 
+
+
+  async receivemq(email) {
+    const channel = await this.createmqchannel()
+    if(think.isEmpty(channel))
+      return
+
+    return new Promise((resolve,reject) => {
+      const q = email
+      channel.checkQueue(q)
+        channel.assertQueue(q, {durable: true});
+        channel.consume(q, (data) => {
+          channel.ack(data);
+          resolve(JSON.parse(data.content))
+        }, {noAck: false});
+        channel.close()
+    })
+  }
+
+
+  async loginAction() {
+  	// 获取用户邮箱
+    const email = this.wsData.email
+  	// const user = await this.session('user_token');
+  	/*if(think.isEmpty(user)){
+      return ;
+    }*/
+  	console.log('user email: ' + email)
 
   	// 写入对象，email对应socket本身
-  	Object.assign(socketObject, {[user.user_email]:this.websocket})
+  	Object.assign(socketObject, {[email]:this.websocket})
 
   	console.log(`socketId: ${this.websocket.id}连接`)
-  	this.emit('opend', 'This client opened successfully!')
-  	const groups = await this.findGroups('1641084984@qq.com')
+  	// this.emit('opend', 'This client opened successfully!')
+  	const groups = await this.findGroups(email)
   	groups.map((n) => {
   	  this.websocket.join(n.group_id);
   	})
   	
-  	/*
-	const mqConnection = await connectmq().then((result) => {
-	  conn = result
-	  console.log('连接上mq')
-	}).catch((error) => console.log(error))
-	*/
-  	// this.websocket.emit('opend', 'This client opened successfully!')
-  	// socketMap.get(this.websocket.id).emit('opend', 'This client opened successfully!')
+  	await this.receivemq(email)
+    .then(resolve => {
+      console.log(resolve)
+      this.emit('message', {sendObj:resolve} )
+    })
+    .catch(reject => console.log('error'))
+    // console.log(msg)
   }
 
   async closeAction() {
-  	this.emit('closed','close')
+    const emails = Object.keys(socketObject)
+    const index = emails.findIndex((value) => Object.is(socketObject[value],this.websocket))
+    if(index !== -1) {
+      console.log(`${emails[index]}关闭`)
+      Object.assign(socketObject,{[emails[index]]:undefined})
+    }
   }
+
 
   async chatAction() {
   	// 要发送的信息
@@ -86,7 +159,7 @@ module.exports = class extends Base {
   	  	const sendObj = {}
   	  	const data = []
   	  	data.push({
-  	  	  isOnline: 1,
+  	  	  isOnline: true,
   	  	  fromUser: this.wsData.fromUser,
   	  	  data: this.wsData.data,
   	  	  date: this.wsData.date,
@@ -96,6 +169,12 @@ module.exports = class extends Base {
   	  	Object.assign(sendObj,{id:to},{data:data})
   	  	this.emit('message',{sendObj})
   	  	Object.assign(sendObj,{id:this.wsData.fromUser.email})
+        console.log(think.isEmpty(socketObject[to]))
+        if(think.isEmpty(socketObject[to])) {
+          // 未在线 将数据放mq
+          this.assertmq(sendObj,to)
+          return
+        }
   	  	socketObject[to].emit('message', {sendObj} )
   	  // }
   	}
@@ -115,12 +194,6 @@ module.exports = class extends Base {
   	  	this.ctx.app.websocket.io.in(to).emit('message', {sendObj});
   	  // }
   	}
-  	// const data = this.wsData
-
-  	// this.websocket.join('123');
-  	
-  	// this.emit('message', aaa)
-    // toSocket.emit('message',data.msg);
   }
 
   async addVerifyAction() {

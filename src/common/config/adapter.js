@@ -89,7 +89,7 @@ exports.websocket = {
     path: '/socket.io',             // 默认 '/socket.io'
     adapter: null,                  // 默认无 adapter
     messages: [{
-      open: '/api/websocket/open',       // 建立连接时处理对应到 websocket Controller 下的 open Action
+      login: '/api/websocket/login',       // 建立连接时处理对应到 websocket Controller 下的 open Action
       // storeSocket: '/api/websocket/storeSocket', // 得知连接的用户的email
       close: '/api/websocket/close',     // 关闭连接时处理的 Action
       addVerify: '/api/websocket/addVerify', // 发送好友验证

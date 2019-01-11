@@ -122,7 +122,7 @@ module.exports = class extends Base {
     var _this3 = this;
 
     return _asyncToGenerator(function* () {
-      yield _this3.session();
+      yield _this3.session(null);
       return _this3.success();
     })();
   }

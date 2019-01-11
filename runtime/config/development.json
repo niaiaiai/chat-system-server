@@ -30,7 +30,7 @@
       "type": "file",
       "file": {
         "timeout": 86400000,
-        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\cache",
         "pathDepth": 1,
         "gcInterval": 86400000
       }
@@ -57,14 +57,14 @@
         "backups": 10,
         "absolute": true,
         "maxLogSize": 51200,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       },
       "dateFile": {
         "level": "ALL",
         "absolute": true,
         "pattern": "-yyyy-MM-dd",
         "alwaysIncludePattern": true,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       }
     },
     "websocket": {
@@ -88,7 +88,7 @@
         "adapter": null,
         "messages": [
           {
-            "open": "/api/websocket/open",
+            "login": "/api/websocket/login",
             "close": "/api/websocket/close",
             "addVerify": "/api/websocket/addVerify",
             "addFriend": "/api/websocket/addFriend",
@@ -114,7 +114,7 @@
           ],
           "signed": true
         },
-        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\session"
       }
     }
   },
@@ -170,7 +170,7 @@
       "type": "file",
       "file": {
         "timeout": 86400000,
-        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\cache",
         "pathDepth": 1,
         "gcInterval": 86400000
       }
@@ -197,14 +197,14 @@
         "backups": 10,
         "absolute": true,
         "maxLogSize": 51200,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       },
       "dateFile": {
         "level": "ALL",
         "absolute": true,
         "pattern": "-yyyy-MM-dd",
         "alwaysIncludePattern": true,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       }
     },
     "websocket": {
@@ -228,7 +228,7 @@
         "adapter": null,
         "messages": [
           {
-            "open": "/api/websocket/open",
+            "login": "/api/websocket/login",
             "close": "/api/websocket/close",
             "addVerify": "/api/websocket/addVerify",
             "addFriend": "/api/websocket/addFriend",
@@ -254,7 +254,7 @@
           ],
           "signed": true
         },
-        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\session"
       }
     }
   },
@@ -289,7 +289,7 @@
       "type": "file",
       "file": {
         "timeout": 86400000,
-        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\cache",
+        "cachePath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\cache",
         "pathDepth": 1,
         "gcInterval": 86400000
       }
@@ -316,14 +316,14 @@
         "backups": 10,
         "absolute": true,
         "maxLogSize": 51200,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       },
       "dateFile": {
         "level": "ALL",
         "absolute": true,
         "pattern": "-yyyy-MM-dd",
         "alwaysIncludePattern": true,
-        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\logs\\app.log"
+        "filename": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\logs\\app.log"
       }
     },
     "websocket": {
@@ -347,7 +347,7 @@
         "adapter": null,
         "messages": [
           {
-            "open": "/api/websocket/open",
+            "login": "/api/websocket/login",
             "close": "/api/websocket/close",
             "addVerify": "/api/websocket/addVerify",
             "addFriend": "/api/websocket/addFriend",
@@ -373,7 +373,7 @@
           ],
           "signed": true
         },
-        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs\\runtime\\session"
+        "sessionPath": "C:\\Users\\Administrator\\Documents\\chat-system-server-thinkjs-git\\runtime\\session"
       }
     }
   }
