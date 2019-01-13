@@ -112,6 +112,8 @@ module.exports = class extends Base {
       const email = _this2.post('email');
       const password = _this2.post('password');
       const data = yield _this2.model('user').where({ user_email: email, password: password }).find();
+
+      if (think.isEmpty(data)) return _this2.fail(`${email}不存在或密码错误`);
       //session
       yield _this2.session('user_token', data);
       return _this2.success(data);

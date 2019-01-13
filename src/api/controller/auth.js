@@ -103,6 +103,9 @@ module.exports = class extends Base {
     const email = this.post('email');
     const password = this.post('password')
     const data = await this.model('user').where({user_email:email, password:password}).find()
+
+    if(think.isEmpty(data))
+      return this.fail(`${email}不存在或密码错误`)
     //session
     await this.session('user_token', data);
     return this.success(data)

@@ -74,41 +74,53 @@ module.exports = class extends Base {
     })
   }
  
-
+  // async consumemq() {
+  //   return new Promise((resolve,reject) => {
+  //     channel.consume(q, (msg) => {
+  //       // console.log(JSON.parse(data.content.toString()))
+  //       // msg.push(JSON.parse(data.content.toString()))
+  //       resolve(msg)
+  //       // channel.ack(data);
+  //     }, {noAck: false});
+  //   })
+  // }
 
   async receivemq(email,channel) {
     // const channel = await this.createmqchannel()
     // if(think.isEmpty(channel))
     //   return
       const q = email
+      console.log(q)
       channel.checkQueue(q)
       channel.assertQueue(q, {durable: true});
     const promise = new Promise((resolve,reject) => {
-      const msg = []
+      // const msg = []
+      //channel.prefetch(1)
       channel.consume(q, (data) => {
-        msg.push(JSON.parse(data.content.toString()))
-        resolve(msg)
-        channel.ack(data);
-      }, {noAck: false});
+        console.log(JSON.parse(data.content.toString()))
+        const sendObj = JSON.parse(data.content.toString())
+        this.emit('message', {sendObj})
+        // msg.push(JSON.parse(data.content.toString()))
+        resolve(JSON.parse(data.content.toString()))
+        // channel.ack(data);
+      }, {noAck: true});
     })
-    return promise
+    setTimeout(()=> {
+      channel.close()
+    },1000*10)
+    //return promise
   }
 
 
   async loginAction() {
   	// 获取用户邮箱
     const email = this.wsData.email
-  	// const user = await this.session('user_token');
-  	/*if(think.isEmpty(user)){
-      return ;
-    }*/
   	console.log('user email: ' + email)
 
   	// 写入对象，email对应socket本身
   	Object.assign(socketObject, {[email]:this.websocket})
 
   	console.log(`socketId: ${this.websocket.id}连接`)
-  	// this.emit('opend', 'This client opened successfully!')
   	const groups = await this.findGroups(email)
   	groups.map((n) => {
   	  this.websocket.join(n.group_id);
@@ -118,10 +130,15 @@ module.exports = class extends Base {
     if(think.isEmpty(channel))
       return
 
-  	const msg = await this.receivemq(email,channel)
-    console.log(msg)
-    channel.close()
-    msg.map((n) => this.emit('message', {sendObj:n} ))
+  	// let msg = [1]
+    // while(!think.isEmpty(msg)) {
+      // msg = []
+      this.receivemq(email,channel)
+     // console.log(think.isEmpty(msg)+'aaaaaa')
+      // let sendObj = msg
+      // this.emit('message', {sendObj})
+    // }
+    // channel.close()
     
   }
 
@@ -173,8 +190,9 @@ module.exports = class extends Base {
   	  	this.emit('message',{sendObj})
   	  	Object.assign(sendObj,{id:this.wsData.fromUser.email})
         console.log(think.isEmpty(socketObject[to]))
-        if(think.isEmpty(socketObject[to])) {
+        if(socketObject[to] === undefined) {
           // 未在线 将数据放mq
+          console.log('fang mq')
           this.assertmq(sendObj,to)
           return
         }
