@@ -202,8 +202,8 @@ module.exports = class extends Base {
         to = _this5.wsData.sendTo.toUser.email;
         // if(socketObject[to]) {
         const sendObj = {};
-        const data = [];
-        data.push({
+        let data = {};
+        Object.assign(data, {
           isOnline: true,
           fromUser: _this5.wsData.fromUser,
           data: _this5.wsData.data,
@@ -227,8 +227,8 @@ module.exports = class extends Base {
         to = _this5.wsData.sendTo.toGroup.id;
         // if(socketObject[to]) {
         const sendObj = {};
-        const data = [];
-        data.push({
+        let data = {};
+        Object.assign(data, {
           isOnline: 1,
           fromUser: _this5.wsData.fromUser,
           data: _this5.wsData.data,
